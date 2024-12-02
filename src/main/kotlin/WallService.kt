@@ -1,5 +1,6 @@
 object WallService {
     private var posts = emptyArray<Post>()
+    private var comments = emptyArray<Comment>()
     private var nextID = 1
 
     fun add(post: Post): Post {
@@ -20,6 +21,17 @@ object WallService {
                 }
             }
         }
+    }
+
+    fun createComment(postId: Int, comment: Comment): Comment {
+        for (post in posts) {
+            if (post.id == postId) {
+                val newComment = comment.copy()
+                comments += newComment
+                return comments.last()
+            }
+        }
+        throw PostNotFoundException("Пост с ID $postId не найден")
     }
 
     fun update(post: Post): Boolean {

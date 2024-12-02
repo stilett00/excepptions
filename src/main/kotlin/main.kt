@@ -14,5 +14,11 @@ fun main(){
     WallService.update(Post(22, 1900090000, "My edited post", id = 1))
     WallService.printPosts()
 
-
+    try {
+        val comment = Comment(1, 1, 2999999, "lol")
+        val result = WallService.createComment(10, comment)
+        println(result)
+    } catch (e: PostNotFoundException) {
+        println(e.message)
+    }
 }
