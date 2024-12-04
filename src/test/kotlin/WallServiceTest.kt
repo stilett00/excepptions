@@ -41,10 +41,12 @@ class WallServiceTest {
         val result = WallService.createComment(1, comment)
     }
 
-    @Test(expected = PostNotFoundException::class)
-    fun shouldAddPost() {
-        val comment = Comment(1, 2, 2999999, "lol")
-        val result = WallService.createComment(1, comment)
+    @Test
+    fun createComment_shouldAddComment_whenPostExists() {
+        val post = WallService.add(Post(authorId = 1, date = 1735034034, text = "Test post"))
+        val comment = Comment(id = 1, date = 2999999, text = "Valid comment")
+        val result = WallService.createComment(post.id, comment)
+        assertEquals(comment.text, result.text)
     }
 
 }
